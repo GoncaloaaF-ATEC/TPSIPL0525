@@ -15,9 +15,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
@@ -37,10 +41,11 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf("Gonçalo")
             }
 
+            var text by rememberSaveable { mutableStateOf("") }
             Column {
 
-                Text("Ola 1")
-                Text("Ola 2")
+                Text("Ola 1", modifier = Modifier.padding(top = 40.dp))
+                Text("Ola 2", modifier = Modifier.padding())
                 Text(nome.value,
                     fontSize = 40.sp,
                     fontFamily = FontFamily.Monospace,
@@ -57,9 +62,11 @@ class MainActivity : ComponentActivity() {
 
                 }
 
+                TextField(text, onValueChange = { text = it })
+
 
                 Button(onClick = {
-                    nome.value = "Novo nome"
+                    nome.value = text
                     Log.d("lbl", nome.value)
                 }) {
 

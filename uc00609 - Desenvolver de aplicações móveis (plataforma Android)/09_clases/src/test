@@ -1,0 +1,16 @@
+                                  main (codido estavel, a funcionar, deve passar por um pipeline de testes)
+                                    |
+                                    |
+                                   Dev ( local de trabalho)
+                                    |
+                                    |
+                            ------------------------
+                            |        |            |
+                            |        |            |
+                            F1       F2           F3
+                                                  |
+                                                  |
+                                             --------------
+                                             |
+                                             |
+                                           F3.1

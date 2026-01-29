@@ -33,6 +33,10 @@ data class Prato(val nome: String, val preco: Int, val imgagem: Int)
 class MainActivity : ComponentActivity() {
 
     val prato = Prato("Salada de Atum", 10,R.drawable.img )
+    val prato2 = Prato("Frango Frito", 10,R.drawable.img )
+
+
+    val prato3 = Prato("Picanha", 10,R.drawable.img )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,50 +47,19 @@ class MainActivity : ComponentActivity() {
 
 
 
-            Column(
-                Modifier.fillMaxSize()
-            ) {
+            Column(Modifier.fillMaxSize()) {
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
+            prato(prato)
 
-                    Image(painter = painterResource(prato.imgagem),
-                        contentDescription = prato.nome,
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.
-                        padding(top = 20.dp, start = 20.dp).
-                        size(80.dp, 80.dp).
-                        clip(CircleShape).
-                        border(2.dp, Color.Red,CircleShape )
-                    )
+            prato(prato2)
+            prato(prato3)
 
-                    Column {
-                        Text(prato.nome,
-                            fontWeight = FontWeight.Bold,
-
-                            modifier = Modifier
-                                .padding(start = 20.dp),
-                            style = MaterialTheme.typography.bodyLarge
-
-                        )
-
-                        Text("${prato.preco}€",
-                            modifier = Modifier
-                                .padding(start = 20.dp, top = 5.dp),
-
-                        style = MaterialTheme.typography.labelMedium
-                        )
-
-
-                    }
-
-
-
-
-
-                }
 
 
             }
+
+
+
 
         }// setContent
     }// onCreate
@@ -94,7 +67,44 @@ class MainActivity : ComponentActivity() {
 
 
 
+@Composable
+fun prato(prato: Prato){
 
+    Row(verticalAlignment = Alignment.CenterVertically) {
+
+        Image(
+            painter = painterResource(prato.imgagem),
+            contentDescription = prato.nome,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.padding(top = 20.dp, start = 20.dp).size(80.dp, 80.dp)
+                .clip(CircleShape).border(2.dp, Color.Red, CircleShape)
+        )
+
+        Column {
+            Text(
+                prato.nome,
+                fontWeight = FontWeight.Bold,
+
+                modifier = Modifier
+                    .padding(start = 20.dp),
+                style = MaterialTheme.typography.bodyLarge
+
+            )
+
+            Text(
+                "${prato.preco}€",
+                modifier = Modifier
+                    .padding(start = 20.dp, top = 5.dp),
+
+                style = MaterialTheme.typography.labelMedium
+            )
+
+
+        }
+
+    }
+
+}
 
 @Preview(showBackground = true)
 @Composable

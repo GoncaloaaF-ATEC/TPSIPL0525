@@ -14,12 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.log
 
 
 /**
@@ -134,7 +136,56 @@ fun getAllComments(){
 }
 
 
-fun getCommnet(id: Int){}
+fun getCommnet(id: Int){
+
+    Log.d("demo 1 - fun", "2 todos - Inicio ")
+
+    var api = Retrofit.Builder()
+        .baseUrl("https://jsonplaceholder.typicode.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(APIHandler::class.java)
+
+    Log.d("demo 1 - fun", "3 Retrofit.Builder() - Done ")
+    Log.d("demo 1 - fun", "4 leitura dos dados  ")
+
+    api.getComment(id).enqueue(object : Callback<Coment>{
+        override fun onResponse(
+            call: Call<Coment>,
+            response: Response<Coment>
+        ) {
+            if (response.isSuccessful){
+                Log.d("demo 1 - fun","5: inicio isSuccessful")
+
+                response.body()?.let {
+
+                    Log.d("cmt", "nome: ${it.name}, email: ${it.email} ")
+                }
+
+                Log.d("demo 1 - fun","6: fim isSuccessful")
+            }
+        }//onResponse
+
+        override fun onFailure(
+            call: Call<Coment>,
+            t: Throwable
+        ) {
+            Log.d("demo 1 - fun","5: Erro: ${t.message}")
+        } //onFailure
+
+
+    } //Callback<List<Coment>>{
+    )//  api.getAllComments().enqueue
+
+
+
+
+
+    Log.d("demo 1 - fun", "todos - Fim ")
+
+
+
+}
 
 @Preview(showBackground = true)
 @Composable
